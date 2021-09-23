@@ -107,17 +107,15 @@ nav {
   display: flex;
   align-items: center;
   gap: 5px;
-}
 
-.nav-icon svg {
   fill: var(--g-colorRed100);
 }
 
 nav ul {
-  display: flex;
   list-style: none;
-  justify-content: space-evenly;
+  display: flex;
   align-items: center;
+  justify-content: space-evenly;
   gap: 2rem;
 }
 
@@ -139,8 +137,8 @@ a:focus-visible {
 
 .nav-buttons {
   display: flex;
-  gap: 10px;
   align-items: center;
+  gap: 10px;
 }
 
 .btn {
@@ -228,8 +226,7 @@ a:focus-visible {
   transition: background-color 0.1s ease-out;
 }
 
-.dots > li[data-active],
-.dots > li:hover {
+.dots > li:is([data-active], :hover) {
   background-color: var(--active-color);
 }
 
@@ -239,12 +236,15 @@ a:focus-visible {
   bottom: 2rem;
   left: 50%;
   transform: translateX(-50%);
+  
   height: 50px;
   width: 50px;
-  border-radius: 50%;
-  background-color: var(--active-color);
+
   display: grid;
   place-items: center;
+  
+  border-radius: 50%;
+  background-color: var(--active-color);
   fill: var(--g-colorGray0);
   cursor: pointer;
 
@@ -272,13 +272,14 @@ a:focus-visible {
   animation: float-up 2s ease forwards;
 }
 
-.photo-grid > div {
+.photo-grid-col {
   display: flex;
   flex-direction: column;
   gap: 1rem;
   flex-shrink: 0;
+
   --distance-from-edge: min(var(--g-ncols) - var(--col), var(--col) - 1);
-  margin-top: calc(160px * var(--distance-from-edge));
+  margin-top: calc(160px * var(--distance-from-edge) - (80px * var(--sm-gap, 0)));
 
   transform: translateY(50px);
   opacity: 0;
@@ -287,19 +288,7 @@ a:focus-visible {
   animation-delay: calc(var(--col) * 0.15s + 0.05s);
 }
 
-.photo-grid > div:nth-child(2n + 1) {
-  margin-top: calc(120px * var(--distance-from-edge));
-}
-.photo-grid > div:nth-child(4n) {
-  margin-top: calc(160px * var(--distance-from-edge) - 80px);
-}
-
-.photo-grid > div:after {
-  counter-reset: variable var(--distance-from-edge);
-  content: counter(variable);
-}
-
-.photo-grid > div img {
+.img-card {
   width: 236px;
   height: 350px;
   object-fit: cover;
@@ -317,7 +306,6 @@ a:focus-visible {
     opacity: 1;
   }
 }
-
 
 @keyframes scroll-indicator-bob {
   to {
