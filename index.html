@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="reset.css" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">  
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <title>Pinterest</title>
   </head>
   <body>
@@ -35,62 +35,99 @@
         </span>
       </ul>
     </nav>
-    <header class="hero-section">
+    <header class="hero-section" data-color="orange">
       <h1>
         Get your next
-        <div class="idea-text orange">weeknight dinner idea</div>
+        <div class="idea-text">weeknight dinner idea</div>
       </h1>
       <ul class="dots">
-        <li data-active class="orange"></li>
-        <li class="olive"></li>
-        <li class="blue"></li>
-        <li class="green"></li>
+        <li data-active></li>
+        <li></li>
+        <li></li>
+        <li></li>
       </ul>
+      <a class="scroll-indicator" href="#">
+        <svg
+          height="24"
+          width="24"
+          viewBox="0 0 24 24"
+          aria-label="Arrow"
+          role="img"
+        >
+          <path
+            d="M12 19.5L.66 8.29c-.88-.86-.88-2.27 0-3.14.88-.87 2.3-.87 3.18 0L12 13.21l8.16-8.06c.88-.87 2.3-.87 3.18 0 .88.87.88 2.28 0 3.14L12 19.5z"
+          ></path>
+        </svg>
+      </a>
     </header>
 
     <div class="photo-grid">
-        <div class="photo-grid-col" style="--col: 1;">
-            <img class="img-card" src="assets/img1.jpg" />
-            <img class="img-card" src="assets/img2.jpg" />
-        </div>
-        <div class="photo-grid-col" style="--col: 2;">
-            <img class="img-card" src="assets/img3.jpg" />
-            <img class="img-card" src="assets/img4.jpg" />
-            
-        </div>
-        <div class="photo-grid-col" style="--col: 3;--sm-gap: 1">
-            <img class="img-card" src="assets/img5.jpg" />
-            <img class="img-card" src="assets/img6.jpg" />
-        </div>
-        <div class="photo-grid-col" style="--col: 4;--sm-gap: 1">
-            <img class="img-card" src="assets/img7.jpg" />
-        </div>
-        <div class="photo-grid-col" style="--col: 5;--sm-gap: 1">
-            <img class="img-card" src="assets/img8.jpg" />
-            <img class="img-card" src="assets/img9.jpg" />
-        </div>
-        <div class="photo-grid-col" style="--col: 6;">
-            <img class="img-card" src="assets/img10.jpg" />
-            <img class="img-card" src="assets/img11.jpg" />
-        </div>
-        <div class="photo-grid-col" style="--col: 7;">
-            <img class="img-card" src="assets/img12.jpg" />
-            <img class="img-card" src="assets/img13.jpg" />
-        </div>
+      <div class="photo-grid-col" style="--col: 1">
+        <img class="img-card" src="assets/img1.jpg" />
+        <img class="img-card" src="assets/img2.jpg" />
+      </div>
+      <div class="photo-grid-col" style="--col: 2">
+        <img class="img-card" src="assets/img3.jpg" />
+        <img class="img-card" src="assets/img4.jpg" />
+      </div>
+      <div class="photo-grid-col" style="--col: 3; --sm-gap: 1">
+        <img class="img-card" src="assets/img5.jpg" />
+        <img class="img-card" src="assets/img6.jpg" />
+      </div>
+      <div class="photo-grid-col" style="--col: 4; --sm-gap: 1">
+        <img class="img-card" src="assets/img7.jpg" />
+      </div>
+      <div class="photo-grid-col" style="--col: 5; --sm-gap: 1">
+        <img class="img-card" src="assets/img8.jpg" />
+        <img class="img-card" src="assets/img9.jpg" />
+      </div>
+      <div class="photo-grid-col" style="--col: 6">
+        <img class="img-card" src="assets/img10.jpg" />
+        <img class="img-card" src="assets/img11.jpg" />
+      </div>
+      <div class="photo-grid-col" style="--col: 7">
+        <img class="img-card" src="assets/img12.jpg" />
+        <img class="img-card" src="assets/img13.jpg" />
+      </div>
     </div>
 
-    <a class="scroll-indicator orange" href="#">
-      <svg
-        height="24"
-        width="24"
-        viewBox="0 0 24 24"
-        aria-label="Arrow"
-        role="img"
-      >
-        <path
-          d="M12 19.5L.66 8.29c-.88-.86-.88-2.27 0-3.14.88-.87 2.3-.87 3.18 0L12 13.21l8.16-8.06c.88-.87 2.3-.87 3.18 0 .88.87.88 2.28 0 3.14L12 19.5z"
-        ></path>
-      </svg>
-    </a>
+    <script>
+      function reset_animation(el) {
+        el.style.animation = 'none';
+        el.offsetHeight; /* trigger reflow */
+        el.style.animation = null;
+      }
+
+      const hero = document.querySelector('.hero-section');
+      const idea = document.querySelector('.idea-text');
+      const photoGrid = document.querySelector('.photo-grid');
+      const dots = [...document.querySelector('.dots').children];
+      const ideas = [
+        'weeknight dinner idea',
+        'home decor idea',
+        'new look outfit',
+        'green thumb idea',
+      ];
+      let colors = ['orange', 'olive', 'blue', 'green'];
+      setInterval(() => {
+        const activeDot =
+          dots.findIndex((dot) => dot.hasAttribute('data-active')) % 4;
+        const newDotIdx = (activeDot + 1) % 4;
+
+        idea.style.animation = 'float-out 0.5s ease-out forwards';
+
+        setTimeout(() => {
+          delete dots[activeDot].dataset.active;
+          dots[newDotIdx].dataset.active = true;
+
+          [...photoGrid.children].forEach((col) => reset_animation(col));
+
+          hero.dataset.color = colors[newDotIdx];
+
+          idea.textContent = ideas[newDotIdx];
+          idea.style.animation = null;
+        }, 500);
+      }, 3000);
+    </script>
   </body>
 </html>
